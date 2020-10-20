@@ -148,10 +148,10 @@ open class FSPagerViewTransformer: NSObject {
             attributes.transform = transform
             attributes.zIndex = zIndex
         case .overlap,.linear:
-            guard scrollDirection == .horizontal else {
-                // This type doesn't support vertical mode
-                return
-            }
+//            guard scrollDirection == .horizontal else {
+//                // This type doesn't support vertical mode
+//                return
+//            }
             let scale = max(1 - (1-self.minimumScale) * abs(position), self.minimumScale)
             let transform = CGAffineTransform(scaleX: scale, y: scale)
             attributes.transform = transform
@@ -248,7 +248,8 @@ open class FSPagerViewTransformer: NSObject {
             return pagerView.itemSize.width * -self.minimumScale * 0.6
         case .linear:
             guard scrollDirection == .horizontal else {
-                return 0
+                /// 间距负值, 按照需要更改
+                return pagerView.itemSize.height * -self.minimumScale * 0.2
             }
             return pagerView.itemSize.width * -self.minimumScale * 0.2
         case .coverFlow:
